@@ -1,0 +1,7 @@
+- if @client
+  %p
+    = link_to 'signout', signout_path
+- else
+  %ul
+    %li= link_to 'Connect to Calendar', redirect_path
+    %li= link_to 'Login With Google', '#'

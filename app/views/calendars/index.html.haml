@@ -1,0 +1,8 @@
+-if @calendar_list
+  %ul
+    - @calendar_list.items.each do |calendar|
+      %li
+        = calendar.summary
+        (#{calendar.id}) =>
+        = link_to 'show', events_path(calendar.id)
+        = link_to 'add', new_events_path(calendar.id)

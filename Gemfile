@@ -40,6 +40,8 @@ gem 'jquery-rails'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 gem 'gon'
+gem "bulma-rails", "~> 0.6.1"
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

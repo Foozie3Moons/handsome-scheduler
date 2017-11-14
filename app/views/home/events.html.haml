@@ -1,8 +1,0 @@
-- if @event_list
-  %ul
-    - @event_list.items.each do |event|
-      %li
-        = event.summary
-        (#{event.id})
-= form_tag new_event_url do
-  = submit_tag 'Add event'

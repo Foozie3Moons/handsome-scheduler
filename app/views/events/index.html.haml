@@ -1,0 +1,10 @@
+.columns
+  .columns.is-3
+    - if @event_list
+      %ul
+        - @event_list.items.each do |event|
+          %li
+            = event.summary
+            (#{event.id})
+  .column.is-9
+    #calendar
