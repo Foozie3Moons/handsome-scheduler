@@ -12,5 +12,9 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery
+//= require jquery_ujs
+//= require moment
+//= require fullcalendar
 //= require handsontable
 //= require_tree .

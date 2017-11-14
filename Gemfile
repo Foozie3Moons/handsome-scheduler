@@ -32,9 +32,14 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'omniauth-google-oauth2', '~> 0.2.1'
 gem 'google-api-client', require: 'google/apis/calendar_v3'
+gem 'signet'
 gem 'haml-rails', '~> 1.0'
 gem 'webpacker', '~> 3.0'
 gem 'react-rails'
+gem 'jquery-rails'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+gem 'gon'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
