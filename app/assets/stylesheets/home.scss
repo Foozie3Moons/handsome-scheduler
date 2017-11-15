@@ -6,3 +6,11 @@
   width: 100vh;
   margin: 0 auto;
 }
+
+.calendar-tooltip {
+  border-radius: 5px;
+  padding: .5em;
+  background: lightblue;
+  position: absolute;
+  z-index: 10001;
+}

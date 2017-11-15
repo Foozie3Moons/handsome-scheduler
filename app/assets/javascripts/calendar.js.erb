@@ -1,31 +1,58 @@
-$(document).on('turbolinks:load', function() {
-  var events = [];
-  if (gon.events) {
+if (/events\/[a-zA-Z0-9@\.\-\_]+$/.test(window.location.href)) {
+  // href matches /events/whatever but not /events/something/else
+  $(document).on('turbolinks:load', function() {
+    var events = [];
     gon.events.forEach(function(event) {
       if (event.start && event.end) {
-        // for debugging
-        // console.log('start:',event.start,' end:',event.end);
         events.push({
           title: event.title,
           start: event.start,
           end: event.end
         })
-      } else {
-        // sometimes null start/end dates are input to the calendar
-        // console.log('null start event detected');
       }
-    })
-  }
-  $('#calendar').fullCalendar({
-      header: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'month,agendaWeek,agendaDay'
-    },
-    googleCalendarApiKey: "<%= ENV['GOOGLE_CLIENT_ID'] %>",
-    events: events,
-    selectable: true,
-    selectHelper: true,
-    editable: false
+    });
+    $('#calendar').fullCalendar({
+        header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+      },
+      googleCalendarApiKey: "<%= ENV['GOOGLE_CLIENT_ID'] %>",
+      events: events,
+      selectable: true,
+      selectHelper: true,
+      editable: false,
+      eventMouseover: function(calEvent, jsEvent) {
+        var tooltip = `
+          <table class="calendar-tooltip">'
+            <tr>
+              <td>
+                ${calEvent.title}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Start: ${moment(calEvent.start).format('h:mm:ss a')}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                End: ${moment(calEvent.end).format('h:mm:ss a')}
+              </td>
+            </tr>
+          </table>`;
+        var $tooltip = $(tooltip).appendTo('body');
+
+        $(this).mouseover(function(e) {
+          $(this).css('z-index', 10000);
+        }).mousemove(function(e) {
+          $tooltip.css('top', e.pageY + 10);
+          $tooltip.css('left', e.pageX + 20);
+        });
+      },
+      eventMouseout: function(calEvent, jsEvent) {
+        $('.calendar-tooltip').remove();
+      },
+    });
   });
-});
+}

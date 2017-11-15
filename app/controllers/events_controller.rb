@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+
   def index
     client = Signet::OAuth2::Client.new(client_options)
     client.update!(session[:authorization])
@@ -23,22 +24,21 @@ class EventsController < ApplicationController
   def create
     client = Signet::OAuth2::Client.new(client_options)
     client.update!(session[:authorization])
-    @client = client
+    # @client = client
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
-    data = params[:data]
-    puts data
-    # today = Date.today
-    #
-    # event = Google::Apis::CalendarV3::Event.new({
-    #   start: Google::Apis::CalendarV3::EventDateTime.new(date: today),
-    #   end: Google::Apis::CalendarV3::EventDateTime.new(date: today + 1),
-    #   summary: 'New event!'
-    # })
-    #
-    # service.insert_event(params[:calendar_id], event)
 
-    redirect_to events_url(calendar_id: params[:calendar_id])
+    new_event = Event.new(event_params)
+
+    event = Google::Apis::CalendarV3::Event.new({
+      start: Google::Apis::CalendarV3::EventDateTime.new(date_time: event_params[:start], time_zone: 'America/Los_Angeles'),
+    end: Google::Apis::CalendarV3::EventDateTime.new(date_time: event_params[:end], time_zone: 'America/Los_Angeles'),
+      summary: new_event.title
+    })
+
+    service.insert_event(event_params[:calendarId], event)
+
+    redirect_to events_url(calendar_id: event_params[:calendarId])
   end
 
   def new
@@ -48,5 +48,11 @@ class EventsController < ApplicationController
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
   end
+
+  private
+
+    def event_params
+      params.permit(:title, :description, :start, :end, :calendarId)
+    end
 
 end
