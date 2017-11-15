@@ -1,5 +1,4 @@
 class EventsController < ApplicationController
-
   def index
     client = Signet::OAuth2::Client.new(client_options)
     client.update!(session[:authorization])
@@ -40,6 +39,14 @@ class EventsController < ApplicationController
     # service.insert_event(params[:calendar_id], event)
 
     redirect_to events_url(calendar_id: params[:calendar_id])
+  end
+
+  def new
+    client = Signet::OAuth2::Client.new(client_options)
+    client.update!(session[:authorization])
+    @client = client
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
   end
 
 end
