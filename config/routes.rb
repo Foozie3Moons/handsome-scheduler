@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
-  # get 'auth/:provider/callback' => 'sessions#create'
-  # get 'auth/failure' => redirect('/')
-  # get 'signout' => 'sessions#destroy'
+  get 'auth/:provider/callback' => 'sessions#create'
+  get 'auth/failure' => redirect('/')
+  get 'signout' => 'sessions#destroy'
 
-  # resources :sessions, only: [:create, :destroy]
-  # resource :main, only: [:show]
+  resources :sessions, only: [:create, :destroy]
+  resource :main, only: [:show]
 
   root 'main#index'
 

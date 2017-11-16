@@ -8,6 +8,7 @@ class EventsController < ApplicationController
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
     @events = service.list_events(params[:calendar_id])
+    @calendar_list = service.list_calendar_lists
     @events = @events.items.map {|event|
       {
         :title => event.summary,
@@ -52,6 +53,7 @@ class EventsController < ApplicationController
     @client = client
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
+    @calendar_list = service.list_calendar_lists
   end
 
   private

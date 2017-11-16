@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import "bulma";
+@import "font-awesome";
 
 #calendar {
   width: 100vh;
@@ -15,4 +16,8 @@
   background: lightblue;
   position: absolute;
   z-index: 10001;
+}
+
+aside.menu {
+  overflow-x: hidden;
 }
