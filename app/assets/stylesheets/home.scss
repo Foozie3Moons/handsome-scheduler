@@ -5,14 +5,29 @@
 @import "bulma";
 @import "font-awesome";
 
+.google-blue {
+  color: #4885ed;
+}
+
+.navbar {
+  border-bottom: 2px solid rgba(0,0,0,0.7)
+}
+
+.calendar-container {
+
+}
+
 #calendar {
   width: 100vh;
-  margin: 0 auto;
+}
+
+.container.has-text-centered {
+  display: flex;
 }
 
 .calendar-tooltip {
   border-radius: 5px;
-  padding: .5em;
+  padding: .5rem;
   background: lightblue;
   position: absolute;
   z-index: 10001;
@@ -20,4 +35,17 @@
 
 aside.menu {
   overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.column#aside {
+  border-right: 2px solid lightgrey;
+}
+
+.columns {
+  padding: 1rem;
+}
+
+aside.menu a:not(.is-active):hover {
+  background-color: rgba(0,0,0,.1);
 }

@@ -1,14 +1,18 @@
-%nav.navbar{"aria-label" => "main navigation", :role => "navigation"}
-  .navbar-brand
-    %a.navbar-item{:href => root_path}
-      %i.fa.fa-calendar &nbsp;
-      %h1.title.is-4 Handsome Scheduler
-    %button.button.navbar-burger
-      %span
-      %span
-      %span
-  - if current_user
-    = link_to 'Log Out', signout_path, :class => ['navbar-item']
-  - else
-    = link_to 'Connect to Calendar', redirect_path, :class => ['navbar-item']
-    = link_to 'Login With Google', '/auth/google_oauth2', :class => ['navbar-item']
+.navbar-brand
+  %a.navbar-item{:href => root_path}
+    %i.fa.fa-calendar.google-blue &nbsp;&nbsp;&nbsp;
+    %h1.title.is-4 Handsome Scheduler
+  %button.button.navbar-burger
+    %span
+    %span
+    %span
+#navbarMenu.navbar-menu
+  .navbar-end
+    - if current_user
+      = link_to 'Calendars', calendars_path, :class => ['navbar-item', is_active?(calendars_path)]
+      = link_to 'Log Out', signout_path, :class => ['navbar-item']
+    - else
+      .navbar-item
+        = link_to '/auth/google_oauth2', :class => ['navbar-item', 'button', 'is-outlined'] do
+          %i.fa.fa-google.google-blue &nbsp;&nbsp;&nbsp;
+          Sign in with Google
