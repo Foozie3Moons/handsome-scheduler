@@ -32,8 +32,12 @@ class EventsController < ApplicationController
     new_event = Event.new(event_params)
 
     event = Google::Apis::CalendarV3::Event.new({
-      start: Google::Apis::CalendarV3::EventDateTime.new(date_time: event_params[:start], time_zone: 'America/Los_Angeles'),
-    end: Google::Apis::CalendarV3::EventDateTime.new(date_time: event_params[:end], time_zone: 'America/Los_Angeles'),
+      start: Google::Apis::CalendarV3::EventDateTime.new(
+        date_time: event_params[:start],
+        time_zone: 'America/Los_Angeles'),
+      end: Google::Apis::CalendarV3::EventDateTime.new(
+        date_time: event_params[:end],
+        time_zone: 'America/Los_Angeles'),
       summary: new_event.title
     })
 
