@@ -60,9 +60,12 @@ class Hot extends React.Component {
           $.ajax({
             url: '/events/' + this.props.calendarId,
             type: 'POST',
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', token)},
+            beforeSend: function(xhr) {
+              // send CSRF token along with POST
+              xhr.setRequestHeader('X-CSRF-Token', token)
+            },
             data: {
-              calendarId: this.props.calendarId,
+              calendar_id: this.props.calendarId,
               title: event[0],
               description: event[1],
               start: moment(event[2] + ' ' + event[4]).format(),

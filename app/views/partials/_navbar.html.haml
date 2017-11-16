@@ -1,7 +1,13 @@
-- if @client
-  %p
-    = link_to 'signout', signout_path
-- else
-  %ul
-    %li= link_to 'Connect to Calendar', redirect_path
-    %li= link_to 'Login With Google', '#'
+%nav.navbar{"aria-label" => "main navigation", :role => "navigation"}
+  .navbar-brand
+    %a.navbar-item{:href => "https://bulma.io"}
+      %img{:alt => "Bulma: a modern CSS framework based on Flexbox", :height => "28", :src => "https://bulma.io/images/bulma-logo.png", :width => "112"}/
+    %button.button.navbar-burger
+      %span
+      %span
+      %span
+  - if @client
+    = link_to 'signout', signout_path, :class => ['navbar-item']
+  - else
+    = link_to 'Connect to Calendar', redirect_path, :class => ['navbar-item']
+    = link_to 'Login With Google', login_path, :class => ['navbar-item']
