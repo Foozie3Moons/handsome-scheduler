@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_action :current_user, :is_authenticated
 
   def index
     client = Signet::OAuth2::Client.new(client_options)
@@ -36,9 +37,9 @@ class EventsController < ApplicationController
       summary: new_event.title
     })
 
-    service.insert_event(event_params[:calendarId], event)
+    service.insert_event(event_params[:calendar_id], event)
 
-    redirect_to events_url(calendar_id: event_params[:calendarId])
+    redirect_to events_url(calendar_id: event_params[:calendar_id])
   end
 
   def new
@@ -52,7 +53,7 @@ class EventsController < ApplicationController
   private
 
     def event_params
-      params.permit(:title, :description, :start, :end, :calendarId)
+      params.permit(:title, :description, :start, :end, :calendar_id)
     end
 
 end

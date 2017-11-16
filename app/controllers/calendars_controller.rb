@@ -1,4 +1,6 @@
 class CalendarsController < ApplicationController
+  before_action :current_user, :is_authenticated
+
   def index
     client = Signet::OAuth2::Client.new(client_options)
     client.update!(session[:authorization])
@@ -7,8 +9,7 @@ class CalendarsController < ApplicationController
     service.authorization = client
     @calendar_list = service.list_calendar_lists
   rescue Google::Apis::AuthorizationError
-    redirect_to redirect_path
-    response = client.refresh!
+    response = client.authorization.refresh!
 
     session[:authorization] = session[:authorization].merge(response)
 
