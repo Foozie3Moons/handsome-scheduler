@@ -24,24 +24,17 @@ if (/events\/[a-zA-Z0-9@\.\-\_]+$/.test(window.location.href)) {
       selectHelper: true,
       editable: false,
       eventMouseover: function(calEvent, jsEvent) {
-        var tooltip = `
-          <table class="box calendar-tooltip">'
-            <tr>
-              <td>
-                <b>${calEvent.title}</b>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Start: ${moment(calEvent.start).format('h:mm:ss a')}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                End: ${moment(calEvent.end).format('h:mm:ss a')}
-              </td>
-            </tr>
-          </table>`;
+        var tooltip = "<table class='box calendar-tooltip'>"
+          +  "<tr>"
+            +  "<td><b>" + calEvent.title + " </b></td>"
+          +  "</tr>"
+          +  "<tr>"
+            +  "<td>Start: " + moment(calEvent.start).format('h:mm:ss a') + "</td>"
+          +  "</tr>"
+          +  "<tr>"
+            +  "<td>End: " + moment(calEvent.end).format('h:mm:ss a') + "</td>"
+          +  "</tr>"
+        +  "</table>";
         var $tooltip = $(tooltip).appendTo('body');
 
         $(this).mouseover(function(e) {
