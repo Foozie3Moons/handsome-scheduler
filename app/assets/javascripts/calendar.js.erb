@@ -2,6 +2,7 @@ if (/events\/[a-zA-Z0-9@\.\-\_]+$/.test(window.location.href)) {
   // href matches /events/whatever but not /events/something/else
   $(document).on('turbolinks:load', function() {
     var events = [];
+    console.log(gon);
     gon.events.forEach(function(event) {
       if (event.start && event.end) {
         events.push({
@@ -24,10 +25,10 @@ if (/events\/[a-zA-Z0-9@\.\-\_]+$/.test(window.location.href)) {
       editable: false,
       eventMouseover: function(calEvent, jsEvent) {
         var tooltip = `
-          <table class="calendar-tooltip">'
+          <table class="box calendar-tooltip">'
             <tr>
               <td>
-                ${calEvent.title}
+                <b>${calEvent.title}</b>
               </td>
             </tr>
             <tr>

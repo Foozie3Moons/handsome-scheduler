@@ -19,10 +19,21 @@
 
 #calendar {
   width: 100vh;
+  margin: 0 auto;
 }
 
-.container.has-text-centered {
+#hot-component {
+  padding: 2em;
+}
+
+.hot-buttons {
+  padding: 1em;
+}
+
+.is-flex {
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .calendar-tooltip {

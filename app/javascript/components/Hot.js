@@ -73,7 +73,6 @@ class Hot extends React.Component {
             }
           })
             .then((response) => console.log(response))
-            .then(() => this.setState({data: [[]]}));
         }
       }
     }
@@ -82,10 +81,10 @@ class Hot extends React.Component {
   render() {
     return (
       <div id="hot-component">
-        <div id="hot-options">
-          <button onClick={this.addRows}>Add rows</button><br/>
+        <div className='hot-buttons'>
+          <button className='button' onClick={this.addRows}>Add rows</button>&nbsp;&nbsp;
+          <button className='button is-success' onClick={this.handleSubmit}>Add Events</button>
         </div>
-        <button onClick={this.handleSubmit}>Add Events</button>
         <div id="hot-preview">
           <HotTable root="hot" settings={this.state} minCols={this.minCols} rowHeaders={true} colHeaders={this.colHeaders} columns={this.columns}/>
         </div>

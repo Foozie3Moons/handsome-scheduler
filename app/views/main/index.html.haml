@@ -1,2 +1,58 @@
-%h1 Home#index
-%p Find me in app/views/home/index.html.haml
+.hero-head
+  %nav#landing-page.navbar{"aria-label" => "main navigation", :role => "navigation"}
+    = render 'partials/navbar'
+.hero-body
+  .container.has-text-centered.is-flex
+    .columns.is-vcentered
+      .column
+        %h1.title.is-1
+          The hands on scheduler
+        %h2.subtitle.is-4
+          Handsomely presented
+%section.container
+  .columns.features
+    .column.is-4
+      .card
+        .card-image.has-text-centered
+          %i.fa.fa-paw
+        .card-content
+          .content
+            %h4 Bulk add calendar events
+            %p Don't enter your calendar events one at a time any longer.
+            %p
+              %a{:href => "#"} Sign in and try it out
+    .column.is-4
+      .card
+        .card-image.has-text-centered
+          %i.fa.fa-id-card-o
+        .card-content
+          .content
+            %h4 Show your calendar
+            %p See your newly created events in daily, weekly, or monthly views.
+            %p
+              %a{:href => "#"} Sign in and try it out
+    .column.is-4
+      .card
+        .card-image.has-text-centered
+          %i.fa.fa-rocket
+        .card-content
+          .content
+            %h4 Perfect for planning out your days
+            %p Using Google Calendar, you can plan your days and get alerts to your phone to keep you on track
+            %p
+              %a{:href => "#"} Sign in and try it out
+  .intro.column.is-8.is-offset-2
+    %h2.title The perfect tool for professional coordinators and organizers
+    %br/
+    %p.subtitle diam in arcu cursus.
+%footer.footer
+  .container
+    .content.has-text-centered
+      %p
+        %strong A passion project
+        by
+        %a{:href => "https://github.com/foozie3moons"} Matthew Bell
+
+      %p
+        %a.icon{:href => "https://github.com/foozie3moons/handsome-scheduler"}
+          %i.fa.fa-github

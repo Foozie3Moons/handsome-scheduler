@@ -9,9 +9,7 @@ class CalendarsController < ApplicationController
     service.authorization = client
     @calendar_list = service.list_calendar_lists
   rescue Google::Apis::AuthorizationError
-    response = client.authorization.refresh!
-
-    session[:authorization] = session[:authorization].merge(response)
+    session[:authorization] = session[:authorization].merge(client.refresh!)
 
     retry
   end
