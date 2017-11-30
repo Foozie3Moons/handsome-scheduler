@@ -9,13 +9,13 @@ class EventsController < ApplicationController
     service.authorization = client
     @events = service.list_events(params[:calendar_id])
     @calendar_list = service.list_calendar_lists
-    @events = @events.items.map {|event|
+    @events = @events.items.map do |event|
       {
         :title => event.summary,
         :start => event.start.date_time,
         :end => event.end.date_time
       }
-    }
+    end
     gon.events = @events
   rescue Google::Apis::AuthorizationError
     response = client.refresh!

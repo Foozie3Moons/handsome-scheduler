@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
 
   def is_authenticated
     unless current_user
-      flash[:danger] = 'Credentials Invalid'
       redirect_to root_path
     end
   end
@@ -15,6 +14,8 @@ class ApplicationController < ActionController::Base
     if @current_user
       if @current_user.oauth_expires_at < Time.new
         session[:user_id] = nil
+        # eventual warning when logged out, currently does nothing
+        flash[:warning] = 'You have been logged out due to inactivity'
       end
     end
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
