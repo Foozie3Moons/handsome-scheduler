@@ -9,54 +9,68 @@ class Hot extends React.Component {
       data: [[]],
     }
     this.minCols = 4
-    this.colHeaders = ['Event Title', 'Description', 'Start Date', 'End Date', 'Start Time', 'End Time']
+    this.colHeaders = ['Event Title', 'Description', 'All Day', 'Start Date', 'End Date', 'Start Time', 'End Time']
     this.columns = [
-      {},
-      {},
+      {data: 'title'},
+      {data: 'description'},
       {
+        data: 'allDay',
+        type: 'checkbox'
+      },
+      {
+        data: 'startDate',
         type: 'date',
         dateFormat: 'MM/DD/YYYY',
         correctFormat: true,
         defaultDate: new Date()
       },
       {
+        data: 'endDate',
         type: 'date',
         dateFormat: 'MM/DD/YYYY',
         correctFormat: true,
         defaultDate: new Date()
       },
       {
+        data: 'startTime',
         type: 'time',
         timeFormat: 'h:mm:ss a',
         correctFormat: true
       },
       {
+        data: 'endTime',
         type: 'time',
         timeFormat: 'h:mm:ss a',
         correctFormat: true
       }
     ]
+    this.dataSchema = {
+      title: null,
+      description: null,
+      allDay: false,
+      startDate: null,
+      endDate: null,
+      startTime: null,
+      endTime: null
+    }
   }
 
   addRows = () => {
-    console.log(this.state)
     this.setState({
       minRows: this.state.minRows + 1
     })
-    console.log(this.state)
   }
 
   handleSubmit = () => {
-    console.log($('htInvalid'))
     if ($('.htInvalid').length > 0) {
       alert('Please fix the highlighted cells', $('htInvalid'))
     } else {
       let data = this.state.data
       let token = $('meta[name="csrf-token"]').attr('content');
-      console.log(token);
       for (let i = 0; i < data.length; i++) {
         let event = data[i];
-        if (event[0] !== null) {
+        if (event.title && !event.allDay && event.startDate
+          && event.startTime && event.endDate && event.endTime) {
           $.ajax({
             url: '/events/' + this.props.calendarId,
             type: 'POST',
@@ -66,13 +80,27 @@ class Hot extends React.Component {
             },
             data: {
               calendar_id: this.props.calendarId,
-              title: event[0],
-              description: event[1],
-              start: moment(event[2] + ' ' + event[4]).format(),
-              end: moment(event[3] + ' ' + event[5]).format()
+              title: event.title,
+              description: event.description,
+              start: moment(event.startDate + ' ' + event.startTime).format(),
+              end: moment(event.endDate + ' ' + event.endTime).format()
             }
-          })
-            .then((response) => console.log(response))
+          }).then((response) => console.log(response))
+        } else if (event.title && event.allDay) {
+          $.ajax({
+            url: '/events/' + this.props.calendarId,
+            type: 'POST',
+            beforeSend: function(xhr) {
+              // send CSRF token along with POST
+              xhr.setRequestHeader('X-CSRF-Token', token)
+            },
+            data: {
+              calendar_id: this.props.calendarId,
+              title: event.title,
+              description: event.description,
+              start: moment(event.startDate)
+            }
+          }).then((response) => console.log(response))
         }
       }
     }
@@ -86,7 +114,14 @@ class Hot extends React.Component {
           <button className='button is-success' onClick={this.handleSubmit}>Add Events</button>
         </div>
         <div id="hot-preview">
-          <HotTable root="hot" settings={this.state} minCols={this.minCols} rowHeaders={true} colHeaders={this.colHeaders} columns={this.columns}/>
+          <HotTable root="hot"
+            settings={this.state}
+            minCols={this.minCols}
+            rowHeaders={true}
+            colHeaders={this.colHeaders}
+            columns={this.columns}
+            dataSchema={this.dataSchema}
+          />
         </div>
       </div>
     );

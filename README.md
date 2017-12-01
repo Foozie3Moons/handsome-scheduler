@@ -18,6 +18,7 @@ This is a passion project of mine, arising out of the need for something like th
 - Bulma
 
 # Additional Features
+- [ ] Reoccurring events (select the appropriate dates, i.e. Su/M/T/W/Th/F/S)
 - [ ] Undo all calendar additions of a specific post event (by using/storing some sort of post identifier when submitting events via the handsontable spreadsheet)
 - [ ] Create new Google Calendars
 - [ ] Allow for custom vestigial columns (for the user's purpose only, so that they can store data relevant to to the event but not necessarily relevant to a google calendar event)
@@ -26,6 +27,7 @@ This is a passion project of mine, arising out of the need for something like th
 - [ ] Tooltips and help documentation to make using the website easier
 - [ ] Beautify landing page, decide on a color scheme (if any)
 - [ ] Color code events
+- [ ] Introduce D3.js to view usage and post history
 
 # Additional Infrastructure
 - [ ] Model Event
