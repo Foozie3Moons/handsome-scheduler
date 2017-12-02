@@ -9,14 +9,21 @@ class EventsController < ApplicationController
     service.authorization = client
     @events = service.list_events(params[:calendar_id])
     @calendar_list = service.list_calendar_lists
+    weird_events = []
     @events = @events.items.map do |event|
-      {
-        :title => event.summary,
-        :start => event.start.date_time,
-        :end => event.end.date_time
-      }
+      begin
+        {
+          :title => event.summary,
+          :description => event.description,
+          :start => event.start.date_time,
+          :end => event.end.date_time
+        }
+      rescue
+        weird_events.push event
+      end
     end
     gon.events = @events
+    gon.weird = weird_events
   rescue Google::Apis::AuthorizationError
     response = client.refresh!
     session[:authorization] = session[:authorization].merge(response)
@@ -39,7 +46,8 @@ class EventsController < ApplicationController
       end: Google::Apis::CalendarV3::EventDateTime.new(
         date_time: event_params[:end],
         time_zone: 'America/Los_Angeles'),
-      summary: new_event.title
+      summary: new_event.title,
+      description: new_event.description
     })
 
     service.insert_event(event_params[:calendar_id], event)
