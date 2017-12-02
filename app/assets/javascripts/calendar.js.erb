@@ -2,7 +2,8 @@ if (/events\/[a-zA-Z0-9@\.\-\_]+$/.test(window.location.href)) {
   // href matches /events/whatever but not /events/something/else
   $(document).on('turbolinks:load', function() {
     var events = [];
-    console.log(gon);
+    console.log(gon.events);
+    console.log(gon.weird)
     gon.events.forEach(function(event) {
       if (event.start && event.end) {
         events.push({
