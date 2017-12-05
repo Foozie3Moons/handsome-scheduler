@@ -69,8 +69,14 @@ class Hot extends React.Component {
       let token = $('meta[name="csrf-token"]').attr('content');
       for (let i = 0; i < data.length; i++) {
         let event = data[i];
-        if (event.title && !event.allDay && event.startDate
-          && event.startTime && event.endDate && event.endTime) {
+        if (event.allDay) {
+          event.start = moment(event.startDate + ' 00:00:00').format();
+          event.end = moment(event.startDate + ' 23:59:59').format();
+        } else {
+          event.start = moment(event.startDate + ' ' + event.startTime).format();
+          event.end = moment(event.endDate + ' ' + event.endTime).format();
+        }
+        if (event.title) {
           $.ajax({
             url: '/events/' + this.props.calendarId,
             type: 'POST',
@@ -82,23 +88,8 @@ class Hot extends React.Component {
               calendar_id: this.props.calendarId,
               title: event.title,
               description: event.description,
-              start: moment(event.startDate + ' ' + event.startTime).format(),
-              end: moment(event.endDate + ' ' + event.endTime).format()
-            }
-          }).then((response) => console.log(response))
-        } else if (event.title && event.allDay) {
-          $.ajax({
-            url: '/events/' + this.props.calendarId,
-            type: 'POST',
-            beforeSend: function(xhr) {
-              // send CSRF token along with POST
-              xhr.setRequestHeader('X-CSRF-Token', token)
-            },
-            data: {
-              calendar_id: this.props.calendarId,
-              title: event.title,
-              description: event.description,
-              start: moment(event.startDate)
+              start: event.start,
+              end: event.end
             }
           }).then((response) => console.log(response))
         }
