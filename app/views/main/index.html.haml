@@ -1,5 +1,5 @@
 .hero-head
-  %nav#landing-page.navbar{"aria-label" => "main navigation", :role => "navigation"}
+  %nav#landing-page.navbar{'aria-label' => 'main navigation', :role => 'navigation'}
     = render 'partials/navbar'
 .hero-body
   .container.has-text-centered.is-flex
@@ -22,7 +22,7 @@
               Add events using our convenient spreadsheet interface, or copy/paste
               from your existing local spreadsheets.
             %p
-              %a{:href => "auth/google_oauth2"} Sign in and try it out
+              %a{:href => 'auth/google_oauth2'} Sign in and try it out
     .column.is-4
       .card
         .card-image.has-text-centered
@@ -34,7 +34,7 @@
               See your newly created events in daily, weekly, or monthly views.
               Hover over events to see key event information.
             %p
-              %a{:href => "auth/google_oauth2"} Sign in and try it out
+              %a{:href => 'auth/google_oauth2'} Sign in and try it out
     .column.is-4
       .card
         .card-image.has-text-centered
@@ -60,7 +60,10 @@
       %p
         %strong A passion project
         by
-        %a{:href => "https://github.com/foozie3moons"} Matthew Bell
+        %a{:href => 'https://mjbell.io'} Matthew Bell
       %p
-        %a.icon{:href => "https://github.com/foozie3moons/handsome-scheduler"}
+        %a.icon{:href => 'https://github.com/foozie3moons/handsome-scheduler'}
           %i.fa.fa-github.fa-2x
+        &nbsp;
+        %a.icon{:href => 'https://linkedin.com/in/matthew-bell-290'}
+          %i.fa.fa-linkedin.fa-2x
