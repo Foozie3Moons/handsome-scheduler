@@ -6,9 +6,11 @@
       - @calendar_list.items.each do |calendar|
         - @show = "/events/#{calendar.id}"
         - @new = "/events/#{calendar.id}/new"
-        %li
-          = link_to calendar.summary, @show, class: is_active?(@show)
-          - if (is_active?(@show).eql?('is-active') || is_active?(@new).eql?('is-active'))
-            %ul
-              %li
-                = link_to 'Add Events', @new, class: is_active?(@new)
+        - if !calendar.summary.eql?('Holidays in United States') && !calendar.summary.eql?('Contacts')
+          -# hack, not properly handling these two cases so not displaying them for now
+          %li
+            = link_to calendar.summary, @show, class: is_active?(@show)
+            - if (is_active?(@show).eql?('is-active') || is_active?(@new).eql?('is-active'))
+              %ul
+                %li
+                  = link_to 'Add Events', @new, class: is_active?(@new)
