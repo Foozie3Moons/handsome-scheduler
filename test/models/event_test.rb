@@ -1,7 +1,8 @@
-require 'test_helper'
+require 'minitest_helper'
 
-class EventTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class EventTest < Minitest::Test
+  def test_whatever
+    event = Event.new(title: 'Whatever')
+    assert_equal 'Whatever', event.title
+  end
 end
